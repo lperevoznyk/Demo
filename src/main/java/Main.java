@@ -1,58 +1,53 @@
-import java.util.Scanner;
-
 public class Main {
+
     public static void main(String[] args) {
 
-        //Scan values from console
-        Scanner console = new Scanner(System.in);
-        System.out.print("Enter size: ");
-        int size = console.nextInt();
+        //methods for array
+        int[] inputArray;
+        int[] resultArray;
+        int resultArraySize = 0;
+        int resultArrayCounter = 0;
 
-        int[] myArray = new int[size];
+        ConsoleController consoleController = new ConsoleController();
 
-        for (int i = 0; i < myArray.length; i++) {
-            System.out.println("Enter value: ");
-            myArray[i] = console.nextInt();
-        }
+        inputArray = consoleController.getArrayFromConsole();
 
-        for (int x : myArray) {
-            System.out.print("[" + x + "] ");
-        }
-        System.out.println();
-        //================================================
+        consoleController.outLn("inputArray includes: ");
+        consoleController.printArray(inputArray);
 
-
-        //Swap minimum and maximum values in array.
-        int[] array = {19, -2, -8, 7, 9, -10, -5, 3};
-        for (int x : array) {
-            System.out.print("[" + x + "] ");
-        }
-        System.out.println();
-
-        int max = array[0];
-        int indexOfMax = 0;
-        int min = array[0];
-        int indexOfMin = 0;
-
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
-                indexOfMax = i;
-            }
-            if (array[i] < min) {
-                min = array[i];
-                indexOfMin = i;
+        for (int i : inputArray) {
+            if (i > 0) {
+                resultArraySize++;
             }
         }
 
-        int temp = array[indexOfMax];
-        array[indexOfMax] = array[indexOfMin];
-        array[indexOfMin] = temp;
+        resultArray = new int[resultArraySize];
 
-        for (int x : array) {
-            System.out.print("[" + x + "] ");
+        for (int i : inputArray) {
+            if (i > 0) {
+                resultArray[resultArrayCounter] = i;
+                resultArrayCounter++;
+            }
         }
-        System.out.println();
+
+        consoleController.outLn("Result array:");
+        consoleController.printArray(resultArray);
+
+        //sorting
+        int[] array = {2, 4, 6, 3, 2, -1, 0, -18}; //-18, -1, 0, 2, 2, 3, 4, 6
+        sort(array);
+    }
+
+    static void sort(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[i] > array[j]) {
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+        new ConsoleController().printArray(array);
     }
 }
-
